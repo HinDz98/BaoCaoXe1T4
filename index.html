@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo Tương tác: Phương án Tối ưu hóa Xe 1 Tấn 4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Professional Blue -->
+    <!-- Application Structure Plan: A single-page, scrollable dashboard layout designed to present a business proposal compellingly. The structure is thematic, starting with a high-level summary, then diving into the problem with an interactive chart, presenting the solution and benefits, addressing risks via an interactive tabbed component, and ending with a visual implementation timeline. This non-linear structure prioritizes user understanding and engagement for a decision-maker, allowing them to quickly grasp the core proposal and then explore the details (data, risks) as needed. -->
+    <!-- Visualization & Content Choices: 1. Cost Data -> Goal: Compare monthly costs & highlight personnel expense -> Viz: Interactive Bar Chart (Chart.js) -> Interaction: Toggle buttons to switch between months, updating chart data dynamically. Justification: More engaging and clearer than a static table. 2. Risks & Mitigations -> Goal: Organize & Inform -> Viz: Tabbed Interface (HTML/CSS/JS) -> Interaction: Clicking a risk tab reveals its details. Justification: Keeps the UI clean, avoids information overload, and allows the user to focus on specific concerns. 3. Implementation Plan -> Goal: Show change over time -> Viz: Horizontal Timeline (HTML/Tailwind) -> Interaction: Clicking a phase can reveal more details. Justification: Visually represents the project's progression in a more intuitive way than a list. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .nav-link {
+            transition: all 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #0056b3;
+            border-bottom-color: #0056b3;
+        }
+        .tab-button.active {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -8px;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #0056b3;
+            border: 2px solid #ffffff;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 2px;
+            background-color: #dee2e6;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-800">Đề xuất Tối ưu hóa Xe 1.4 Tấn</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#problem" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Hiện trạng</a>
+                        <a href="#solution" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Giải pháp</a>
+                        <a href="#risks" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Rủi ro</a>
+                        <a href="#roadmap" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Lộ trình</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
+        <section id="summary" class="text-center mb-20">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Tối ưu Chi phí, Nâng cao Hiệu quả Vận hành</h2>
+            <p class="mt-4 text-lg leading-8 text-gray-600">Đề xuất chuyển đổi mô hình vận hành cho 02 xe tải 1.4 tấn sang hình thức lương khoán để giải quyết các bất cập hiện tại và tạo tiền đề phát triển trong tương lai.</p>
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-500">Mô hình hiện tại</h3>
+                    <p class="text-2xl font-bold text-red-600 mt-2">1 Tài xế + 1 Giao nhận</p>
+                    <p class="text-sm text-gray-500">Chi phí nhân sự cao, kém linh hoạt.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-blue-600 transform scale-105">
+                     <h3 class="text-lg font-semibold text-gray-500">Mô hình đề xuất</h3>
+                    <p class="text-2xl font-bold text-green-600 mt-2">Tài xế kiêm Giao nhận</p>
+                    <p class="text-sm text-gray-500">Lương khoán 13.5 triệu/tháng.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                     <h3 class="text-lg font-semibold text-gray-500">Lợi ích chính</h3>
+                    <p class="text-2xl font-bold text-blue-600 mt-2">Tối ưu & Linh hoạt</p>
+                    <p class="text-sm text-gray-500">Giảm chi phí, tăng hiệu quả.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="space-y-24">
+            <section id="problem">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Phân tích Hiện trạng: Chi phí Cao, Hiệu quả Thấp</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Mô hình vận hành hiện tại đang bộc lộ nhiều điểm bất cập, đặc biệt là gánh nặng chi phí nhân sự không tương xứng với hiệu quả khai thác.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex justify-center mb-4">
+                            <div class="inline-flex rounded-md shadow-sm" role="group">
+                                <button type="button" id="btn-month-4" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-gray-200 rounded-l-lg hover:bg-blue-700">
+                                    Tháng 4
+                                </button>
+                                <button type="button" id="btn-month-5" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 hover:bg-gray-100 rounded-r-lg">
+                                    Tháng 5
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="costChart"></canvas>
+                        </div>
+                        <p class="text-center mt-4 text-sm text-gray-500">Biểu đồ phân tích chi phí vận hành xe 51C-43039. Tương tác để xem chi tiết.</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                            <h4 class="font-bold text-red-800">Chi phí nhân sự cao</h4>
+                            <p class="text-red-700">Việc bố trí 1 tài xế và 1 giao nhận cho mỗi xe tạo ra chi phí nhân sự lớn, chiếm tỷ trọng cao trong tổng chi phí vận hành.</p>
+                        </div>
+                         <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg">
+                            <h4 class="font-bold text-yellow-800">Hạn chế về tải trọng</h4>
+                            <p class="text-yellow-700">Tải trọng chỉ 1.4 tấn khiến việc tối ưu hóa sắp xếp hàng hóa gặp nhiều khó khăn, xe thường xuyên không chạy hết công suất.</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+                            <h4 class="font-bold text-blue-800">Giảm lợi thế cạnh tranh</h4>
+                            <p class="text-blue-700">Các điểm hàng cấm xe tải trọng lớn đã ít hơn trước, làm giảm đi lợi thế của xe 1.4 tấn trên một số tuyến đường.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="solution">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Đề xuất Giải pháp và Lợi ích Mang lại</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Chuyển đổi sang mô hình lương khoán với tài xế kiêm nhiệm giao nhận là giải pháp toàn diện để giải quyết các vấn đề cốt lõi.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md space-y-3">
+                        <span class="text-3xl">💰</span>
+                        <h4 class="font-bold text-lg">Tối ưu hóa chi phí</h4>
+                        <p class="text-gray-600">Giảm đáng kể chi phí nhân sự cố định, giúp cơ cấu chi phí vận hành trở nên gọn nhẹ và hiệu quả hơn.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md space-y-3">
+                        <span class="text-3xl">🚀</span>
+                        <h4 class="font-bold text-lg">Nâng cao hiệu quả</h4>
+                        <p class="text-gray-600">Mức lương khoán hấp dẫn tạo động lực cho tài xế làm việc hiệu quả hơn để tối đa hóa thu nhập cá nhân.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md space-y-3">
+                        <span class="text-3xl">🔄</span>
+                        <h4 class="font-bold text-lg">Tăng tính linh hoạt</h4>
+                        <p class="text-gray-600">Dễ dàng điều động xe cho các nhiệm vụ đột xuất, tăng bo hoặc các điểm giao khó mà không phụ thuộc vào nhân sự giao nhận.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md space-y-3">
+                        <span class="text-3xl">🎯</span>
+                        <h4 class="font-bold text-lg">Rõ ràng trách nhiệm</h4>
+                        <p class="text-gray-600">Tài xế chịu trách nhiệm trực tiếp và toàn diện cho hàng hóa cũng như chất lượng dịch vụ trong mỗi chuyến đi.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md space-y-3 col-span-1 md:col-span-2 lg:col-span-1">
+                        <span class="text-3xl">🧪</span>
+                        <h4 class="font-bold text-lg">Thử nghiệm mô hình mới</h4>
+                        <p class="text-gray-600">Là tiền đề quan trọng để đánh giá, thu thập kinh nghiệm và tiến tới áp dụng mô hình không giao nhận cho toàn đội xe.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="risks">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Phân tích Rủi ro và Giải pháp Phòng ngừa</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Lường trước các thách thức và xây dựng phương án xử lý chủ động để đảm bảo quá trình chuyển đổi thành công.</p>
+                </div>
+                <div>
+                    <div class="mb-4 flex flex-wrap justify-center gap-2">
+                        <button class="tab-button px-4 py-2 font-medium text-sm rounded-lg transition-colors duration-200 active" data-tab="risk1">Năng lực & Kỳ vọng</button>
+                        <button class="tab-button px-4 py-2 font-medium text-sm rounded-lg transition-colors duration-200" data-tab="risk2">Chất lượng dịch vụ</button>
+                        <button class="tab-button px-4 py-2 font-medium text-sm rounded-lg transition-colors duration-200" data-tab="risk3">Điểm giao hàng khó</button>
+                    </div>
+                    <div id="risk-content" class="bg-white p-8 rounded-lg shadow-lg min-h-[250px]">
+                        <div class="tab-content" id="risk1">
+                             <h4 class="font-bold text-lg text-gray-800 mb-2">Vấn đề: Năng lực và kỳ vọng từ tài xế</h4>
+                             <p class="text-gray-600 mb-4">Mức lương khoán hấp dẫn hơn đi kèm với kỳ vọng cao hơn về năng lực xử lý vấn đề, sự khôn khéo và chủ động của tài xế. Điều này có thể tạo áp lực hoặc dẫn đến việc không đáp ứng được yêu cầu công việc.</p>
+                             <h5 class="font-semibold text-blue-700 mb-2">Giải pháp phòng ngừa:</h5>
+                             <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li>**Tuyển chọn/Đào tạo:** Ưu tiên cân nhắc tài xế có kinh nghiệm, khả năng giao tiếp và xử lý tình huống tốt.</li>
+                                <li>**Tiêu chí đánh giá rõ ràng:** Xây dựng bộ KPIs không chỉ dựa trên số chuyến mà còn cả chất lượng dịch vụ.</li>
+                                <li>**Hỗ trợ ban đầu:** Có cơ chế hỗ trợ và hướng dẫn sát sao trong giai đoạn đầu để tài xế làm quen vai trò mới.</li>
+                             </ul>
+                        </div>
+                        <div class="tab-content hidden" id="risk2">
+                            <h4 class="font-bold text-lg text-gray-800 mb-2">Vấn đề: Chất lượng dịch vụ</h4>
+                             <p class="text-gray-600 mb-4">Việc thiếu giao nhận đi kèm có thể ảnh hưởng đến quá trình bốc xếp hàng hóa, giao tiếp với khách hàng, tiềm ẩn nguy cơ giảm sự hài lòng của khách hàng và uy tín của Chi nhánh.</p>
+                             <h5 class="font-semibold text-blue-700 mb-2">Giải pháp phòng ngừa:</h5>
+                             <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li>Xây dựng quy trình giao nhận chuẩn cho tài xế (bốc xếp, giao tiếp, xử lý tình huống).</li>
+                                <li>Chủ động thu thập phản hồi của khách hàng trong giai đoạn đầu để kịp thời khắc phục.</li>
+                             </ul>
+                        </div>
+                        <div class="tab-content hidden" id="risk3">
+                            <h4 class="font-bold text-lg text-gray-800 mb-2">Vấn đề: Các điểm hàng cấm dừng, cấm đậu</h4>
+                             <p class="text-gray-600 mb-4">Tài xế có thể gặp khó khăn khi giao nhận tại các điểm có quy định chặt chẽ, dẫn đến chậm trễ, phát sinh phạt, hoặc khó khăn trong việc tiếp cận khách hàng.</p>
+                             <h5 class="font-semibold text-blue-700 mb-2">Giải pháp phòng ngừa:</h5>
+                             <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li>Lập danh sách chi tiết các điểm giao hàng đặc thù.</li>
+                                <li>Hướng dẫn tài xế các phương án xử lý linh hoạt tại các điểm khó.</li>
+                                <li>Tổ Điều phối nắm rõ thông tin để hỗ trợ tài xế kịp thời.</li>
+                             </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="roadmap">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Lộ trình Triển khai</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Kế hoạch được chia thành 3 giai đoạn rõ ràng để đảm bảo quá trình chuyển đổi diễn ra một cách có kiểm soát và hiệu quả.</p>
+                </div>
+                <div class="relative">
+                    <div class="timeline-line"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative pl-8">
+                            <div class="timeline-item">
+                                <h4 class="font-bold text-lg">Giai đoạn 1: Chuẩn bị</h4>
+                                <p class="text-sm font-medium text-blue-600">25/06 – 30/06/2025</p>
+                                <p class="mt-2 text-gray-600 text-sm">Trình duyệt báo cáo, làm việc và tổ chức họp với các tài xế liên quan để thông báo chủ trương.</p>
+                            </div>
+                        </div>
+                        <div class="relative pl-8">
+                            <div class="timeline-item">
+                                <h4 class="font-bold text-lg">Giai đoạn 2: Áp dụng Thử nghiệm</h4>
+                                <p class="text-sm font-medium text-blue-600">01/07 – 31/08/2025</p>
+                                <p class="mt-2 text-gray-600 text-sm">Bắt đầu áp dụng phương án mới, theo dõi sát sao số liệu vận hành và thu thập phản hồi.</p>
+                            </div>
+                        </div>
+                         <div class="relative pl-8">
+                            <div class="timeline-item">
+                                <h4 class="font-bold text-lg">Giai đoạn 3: Tổng kết & Đánh giá</h4>
+                                <p class="text-sm font-medium text-blue-600">Tuần đầu tháng 09/2025</p>
+                                <p class="mt-2 text-gray-600 text-sm">Tổ chức họp đánh giá hiệu quả, phân tích và đề xuất điều chỉnh để ban hành quyết định chính thức.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 mt-24">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-gray-300">&copy; 2025 Công ty TNHH Vận Tải Thành Danh. Báo cáo được tạo bởi Phòng Kinh doanh Chi nhánh.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const costData = {
+                '4': {
+                    labels: ['Lương Tài xế', 'Lương Giao nhận', 'Nhiên liệu', 'Sửa chữa'],
+                    values: [11183781, 10112748, 5875307, 1550000]
+                },
+                '5': {
+                    labels: ['Lương Tài xế', 'Lương Giao nhận', 'Nhiên liệu', 'Sửa chữa'],
+                    values: [11609017, 10918350, 6761243, 5385727]
+                }
+            };
+            const ctx = document.getElementById('costChart').getContext('2d');
+            let costChart;
+
+            function createOrUpdateChart(month) {
+                const data = costData[month];
+                const totalCost = data.values.reduce((a, b) => a + b, 0);
+
+                if (costChart) {
+                    costChart.data.labels = data.labels;
+                    costChart.data.datasets[0].data = data.values;
+                    costChart.options.plugins.title.text = `Tổng chi phí tháng ${month}: ${totalCost.toLocaleString('vi-VN')} VNĐ`;
+                    costChart.update();
+                } else {
+                    costChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Chi phí (VNĐ)',
+                                data: data.values,
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 0.6)',
+                                    'rgba(255, 99, 132, 0.6)',
+                                    'rgba(255, 206, 86, 0.6)',
+                                    'rgba(75, 192, 192, 0.6)'
+                                ],
+                                borderColor: [
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            indexAxis: 'y',
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value, index, values) {
+                                            return (value / 1000000).toLocaleString('vi-VN') + 'tr';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: `Tổng chi phí tháng ${month}: ${totalCost.toLocaleString('vi-VN')} VNĐ`,
+                                    font: {
+                                        size: 16
+                                    },
+                                    padding: {
+                                        top: 10,
+                                        bottom: 20
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            let label = context.dataset.label || '';
+                                            if (label) {
+                                                label += ': ';
+                                            }
+                                            if (context.parsed.x !== null) {
+                                                label += context.parsed.x.toLocaleString('vi-VN') + ' VNĐ';
+                                            }
+                                            return label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            createOrUpdateChart('4');
+
+            const btnMonth4 = document.getElementById('btn-month-4');
+            const btnMonth5 = document.getElementById('btn-month-5');
+
+            btnMonth4.addEventListener('click', () => {
+                createOrUpdateChart('4');
+                btnMonth4.classList.add('bg-blue-600', 'text-white');
+                btnMonth4.classList.remove('bg-white', 'text-gray-900');
+                btnMonth5.classList.add('bg-white', 'text-gray-900');
+                btnMonth5.classList.remove('bg-blue-600', 'text-white');
+            });
+            btnMonth5.addEventListener('click', () => {
+                createOrUpdateChart('5');
+                btnMonth5.classList.add('bg-blue-600', 'text-white');
+                btnMonth5.classList.remove('bg-white', 'text-gray-900');
+                btnMonth4.classList.add('bg-white', 'text-gray-900');
+                btnMonth4.classList.remove('bg-blue-600', 'text-white');
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+                    
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    button.classList.add('active');
+                    
+                    tabContents.forEach(content => {
+                        if(content.id === tabId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
